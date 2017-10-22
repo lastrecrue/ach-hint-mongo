@@ -1,5 +1,6 @@
 package ach.hin.data.controller;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import ach.hin.data.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/hello-world")
+@RequestMapping("/")
 @Slf4j
 public class UserController {
 	@Autowired
@@ -31,8 +32,8 @@ public class UserController {
 	@Autowired
 	private ModelRepository modelRepository;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody Collection<?> sayHello(@RequestParam(value = "number", required = false) Integer number) {
+	@RequestMapping(value = "all", method = RequestMethod.GET)
+	public @ResponseBody Collection<?> all(@RequestParam(value = "number", required = true) Integer number) {
 		switch (number) {
 		case 1:
 			log.debug("userRepository");
@@ -46,6 +47,28 @@ public class UserController {
 		case 4:
 			log.debug("modelRepository");
 			return modelRepository.findAll();
+		default:
+			break;
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "byId", method = RequestMethod.GET)
+	public @ResponseBody Serializable byId(@RequestParam(value = "number", required = true) Integer number,
+			@RequestParam(value = "id", required = true) String id) {
+		switch (number) {
+		case 1:
+			log.debug("userRepository");
+			return userRepository.findOne(id).getFriends();
+		case 2:
+			log.debug("carRepository");
+			return carRepository.findOne(id);
+		case 3:
+			log.debug("friendsRepository");
+			return friendsRepository.findOne(id);
+		case 4:
+			log.debug("modelRepository");
+			return modelRepository.findOne(id);
 		default:
 			break;
 		}

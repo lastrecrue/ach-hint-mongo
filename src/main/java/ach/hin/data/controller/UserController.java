@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ach.hin.data.entity.User;
 import ach.hin.data.repository.CarRepository;
 import ach.hin.data.repository.FriendsRepository;
+import ach.hin.data.repository.ModelRepository;
 import ach.hin.data.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +28,9 @@ public class UserController {
 	@Autowired
 	private FriendsRepository friendsRepository;
 
+	@Autowired
+	private ModelRepository modelRepository;
+
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody Collection<?> sayHello(@RequestParam(value = "number", required = false) Integer number) {
 		switch (number) {
@@ -40,6 +43,9 @@ public class UserController {
 		case 3:
 			log.debug("friendsRepository");
 			return friendsRepository.findAll();
+		case 4:
+			log.debug("modelRepository");
+			return modelRepository.findAll();
 		default:
 			break;
 		}

@@ -4,22 +4,21 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.mockito.exceptions.misusing.FriendlyReminderException;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@EqualsAndHashCode(exclude = "friends")
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,16 +28,24 @@ public class User {
 	@Id
 	private String id;
 
+	@LastModifiedDate
+	private Date lasteModified;
+
+	@CreatedDate
+	private Date createdDate;
+
 	@NonNull
 	private String name;
 
 	private Date birthDate;
 
-	@DBRef(lazy = true)
 	@JsonBackReference
 	private Friends friends;
 
 	private Set<Car> cars = new HashSet<>();
+
+	@Version
+	private Long version;
 
 	@Override
 	public boolean equals(Object obj) {

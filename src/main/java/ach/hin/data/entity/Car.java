@@ -1,7 +1,11 @@
 package ach.hin.data.entity;
 
+import java.util.Date;
+
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,11 +21,19 @@ public class Car {
 
 	@Id
 	private String id;
+	@Version
+	private Long version;
 	
 	@NonNull
 	private String registrationNumber;
 	
 	@NonNull
 	private Model model;
+	
+	@LastModifiedDate
+	private Date lasteModified;
+	
+	@CreatedDate
+	private Date createdDate; 
 
 }

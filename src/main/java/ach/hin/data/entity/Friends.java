@@ -1,11 +1,17 @@
 package ach.hin.data.entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +27,18 @@ public class Friends {
 	@Id
 	private String id;
 
+	@LastModifiedDate
+	private Date lasteModified;
+
+	@CreatedDate
+	private Date createdDate;
+
+	@Version
+	private Long version;
+
 	@NonNull
-	@DBRef(lazy=true)
+	@DBRef(lazy = true)
+	@JsonManagedReference
 	private User user;
 
 	@DBRef(lazy = true)

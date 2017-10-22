@@ -9,6 +9,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
+@Document
 public class User {
 
 	@Id
@@ -31,6 +34,8 @@ public class User {
 
 	private Date birthDate;
 
+	@DBRef(lazy = true)
+	@JsonBackReference
 	private Friends friends;
 
 	private Set<Car> cars = new HashSet<>();

@@ -8,15 +8,26 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
+@NoArgsConstructor
+@Document
 public class Friends {
-	
+
 	@Id
 	private String id;
-	
-	@DBRef
+
+	@NonNull
+	@DBRef(lazy=true)
+	private User user;
+
+	@DBRef(lazy = true)
 	private Set<User> users = new HashSet<>();
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -33,6 +44,7 @@ public class Friends {
 			return false;
 		return true;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -40,6 +52,5 @@ public class Friends {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
-	
+
 }

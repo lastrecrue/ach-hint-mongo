@@ -2,6 +2,7 @@ package ach.hin.data.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ach.hin.data.entity.Friends;
 import ach.hin.data.entity.User;
@@ -11,6 +12,7 @@ import ach.hin.data.repository.UserRepository;
 import ach.hin.data.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -31,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public User addFriend(User user, User fiend) {
 		Friends friends = user.getFriends();
 		if (friends == null) {
-			user.setFriends(new Friends());
+			user.setFriends(new Friends(user));
 		}
 		user.getFriends().getUsers().add(fiend);
 		user.setFriends(friendsRepository.save(user.getFriends()));

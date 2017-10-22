@@ -1,5 +1,6 @@
 package ach.hin.data.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Document
-public class Friends {
+public class Friends implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2155963859218116846L;
 
 	@Id
 	private String id;

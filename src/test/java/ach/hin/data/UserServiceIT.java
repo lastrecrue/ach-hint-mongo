@@ -16,7 +16,7 @@ import ach.hin.data.repository.ModelRepository;
 import ach.hin.data.repository.UserRepository;
 import ach.hin.data.service.UserService;
 
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = MongoApplication.class)
 @RunWith(SpringRunner.class)
 public class UserServiceIT {
 
@@ -61,35 +61,35 @@ public class UserServiceIT {
 		Car car5 = new Car("reg4", model3);
 		Car car6 = new Car("reg5", model3);
 		Car car7 = new Car("reg6", model3);
-		
-		model1= modelRepository.save(model1);
-		model2= modelRepository.save(model2);
-		model3= modelRepository.save(model3);
 
-		car1 = carRepository.save(car1);
-		car2 = carRepository.save(car2);
-		car3 = carRepository.save(car3);
-		car4 = carRepository.save(car4);
-		car5 = carRepository.save(car5);
-		car6 = carRepository.save(car6);
-		car7 = carRepository.save(car7);
+		modelRepository.save(model1);
+		 modelRepository.save(model2);
+		 modelRepository.save(model3);
 
-		user1 = userRepository.save(user1);
-		user2 = userRepository.save(user2);
-		user3 = userRepository.save(user3);
-		user4 = userRepository.save(user4);
+		carRepository.save(car1);
+		 carRepository.save(car2);
+		 carRepository.save(car3);
+	carRepository.save(car4);
+		 carRepository.save(car5);
+		carRepository.save(car6);
+		carRepository.save(car7);
+
+		userRepository.save(user1);
+		userRepository.save(user2);
+		userRepository.save(user3);
+		userRepository.save(user4);
 		//
-		user1 = userService.addFriend(user1, user2);
-		user1 = userService.addFriend(user1, user3);
-		user2 = userService.addFriend(user2, user1);
+		 userService.addFriend(user1, user2);
+		 userService.addFriend(user1, user3);
+		userService.addFriend(user2, user1);
 
-		user1 = userService.addCarsToUser(user1, car1);
-		user1 = userService.addCarsToUser(user1, car2);
-		user1 = userService.addCarsToUser(user1, car3);
-		user1 = userService.addCarsToUser(user1, car4);
-		user2 = userService.addCarsToUser(user2, car5);
-		user2 = userService.addCarsToUser(user2, car6);
-		user4 = userService.addCarsToUser(user4, car7);
+		userService.addCarsToUser(user1, car1);
+		userService.addCarsToUser(user1, car2);
+		userService.addCarsToUser(user1, car3);
+		userService.addCarsToUser(user1, car4);
+		userService.addCarsToUser(user2, car5);
+		userService.addCarsToUser(user2, car6);
+		userService.addCarsToUser(user4, car7);
 
 	}
 

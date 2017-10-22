@@ -1,5 +1,6 @@
 package ach.hin.data.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -17,7 +18,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
-public class Model {
+public class Model implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6967500468148798704L;
 
 	@Id
 	private String id;

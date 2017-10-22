@@ -25,10 +25,11 @@ public class UserServiceImpl implements UserService {
 	public User addFriend(User user, User fiend) {
 		Friends friends = user.getFriends();
 		if (friends == null) {
-			user.setFriends(new Friends(user));
+			friends = new Friends(user);
+			user.setFriends(friends);
 		}
-		user.getFriends().getUsers().add(fiend);
-		user.setFriends(friendsRepository.save(user.getFriends()));
+		friends.getUsers().add(fiend);
+		friendsRepository.save(friends);
 		return userRepository.save(user);
 	}
 

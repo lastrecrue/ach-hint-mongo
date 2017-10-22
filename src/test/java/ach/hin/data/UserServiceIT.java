@@ -63,14 +63,14 @@ public class UserServiceIT {
 		Car car7 = new Car("reg6", model3);
 
 		modelRepository.save(model1);
-		 modelRepository.save(model2);
-		 modelRepository.save(model3);
+		modelRepository.save(model2);
+		modelRepository.save(model3);
 
 		carRepository.save(car1);
-		 carRepository.save(car2);
-		 carRepository.save(car3);
-	carRepository.save(car4);
-		 carRepository.save(car5);
+		carRepository.save(car2);
+		carRepository.save(car3);
+		carRepository.save(car4);
+		carRepository.save(car5);
 		carRepository.save(car6);
 		carRepository.save(car7);
 
@@ -79,8 +79,8 @@ public class UserServiceIT {
 		userRepository.save(user3);
 		userRepository.save(user4);
 		//
-		 userService.addFriend(user1, user2);
-		 userService.addFriend(user1, user3);
+		userService.addFriend(user1, user2);
+		userService.addFriend(user1, user3);
 		userService.addFriend(user2, user1);
 
 		userService.addCarsToUser(user1, car1);

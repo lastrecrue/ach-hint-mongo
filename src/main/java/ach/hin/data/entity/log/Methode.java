@@ -33,7 +33,7 @@ public enum Methode {
 
 	PATCH;
 	
-	public static Methode byName(Object value) {
+	public static Methode byName(String value) {
 		Methode[] values = Methode.values();
 		for (Methode methode : values) {
 			if(methode.name().equals(value)) {

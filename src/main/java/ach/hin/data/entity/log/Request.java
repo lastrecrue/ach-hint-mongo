@@ -15,9 +15,15 @@ import lombok.NoArgsConstructor;
 public class Request {
 	public Request(String nextToken) {
 		StringTokenizer stringTokenizer = new StringTokenizer(nextToken);
-		methode =Methode.byName( stringTokenizer.nextToken());
-		url=stringTokenizer.nextToken();
-		protocol=stringTokenizer.nextToken();
+		methode = Methode.byName(stringTokenizer.nextToken());
+		url = stringTokenizer.nextToken();
+		protocol = stringTokenizer.nextToken();
+	}
+
+	public Request(String methode, String url, String protocol) {
+		this.methode = Methode.byName(methode);
+		this.url = url;
+		this.protocol = protocol;
 	}
 
 	private Methode methode;// GET

@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class ScheduledTasks {
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
 	@Autowired
 	private LogConverter logConverter;
 

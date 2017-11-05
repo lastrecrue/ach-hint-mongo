@@ -1,17 +1,17 @@
 package ach.hin.data.tasks;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Executor;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
+import org.apache.commons.io.input.Tailer;
+import org.apache.commons.io.input.TailerListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import ach.hin.data.entity.log.LogAccess;
+import ach.hin.data.entity.log.converter.impl.AccesLLogTailerListenerAdapter;
 import ach.hin.data.entity.log.converter.impl.LogConverter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,44 +22,26 @@ public class ScheduledTasks {
 	@Autowired
 	private LogConverter logConverter;
 
-	private static Set<String> DB_IGNORED_LIGNE = new HashSet<>();
+	public static Set<String> DB_IGNORED_LIGNE = new HashSet<>();
 
 	@Scheduled(cron = "${cron.expression}")
 	public void reportCurrentTime() {
-		try {
-			File theFile = new File("src/main/resources/access_log");
-			LineIterator it;
 
-			it = FileUtils.lineIterator(theFile, "UTF-8");
+		File file = new File("src/main/resources/access_log");
+		TailerListener listener = new AccesLLogTailerListenerAdapter(logConverter);
+		Tailer tailer = new Tailer(file, listener, 1000);
 
-			while (it.hasNext()) {
-				String ligne = it.next();
-				log.debug(ligne);
-
-				LogAccess logAccess = logConverter.fromString(ligne);
-				if (logAccess != null) {
-					log.debug("from doamin name parsser");
-					log.debug(logAccess.getSource());
-				} else {
-					log.error("logAccess is null");
-					archiveIgnore(ligne);
-				}
+		// stupid executor impl. for demo purposes
+		Executor executor = new Executor() {
+			public void execute(Runnable command) {
+				command.run();
 			}
-		} catch (IOException e) {
-			log.error("no file :^^", e);
+		};
 
-		}
-		archiveIgnore("end traitement");
-
+		executor.execute(tailer);
 		for (String string : DB_IGNORED_LIGNE) {
 			log.info("ignored ligne : " + string);
 		}
 	}
 
-	private void archiveIgnore(String ligne) {
-		// TODO Auto-generated method stub
-		log.error("last ignored ligne : " + ligne);
-		DB_IGNORED_LIGNE.add(ligne);
-		log.error("IGNORE_LIGNE : " + DB_IGNORED_LIGNE.size());
-	}
 }

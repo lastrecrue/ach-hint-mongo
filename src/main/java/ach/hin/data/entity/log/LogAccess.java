@@ -29,6 +29,6 @@ public class LogAccess {
 	private Request request;
 
 	private Integer response;// : 401
-	private Integer FIXME;// : 12846
+	private String FIXME;// : 12846
 
 }

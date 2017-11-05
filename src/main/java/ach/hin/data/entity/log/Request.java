@@ -14,16 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Request {
 	public Request(String nextToken) {
-		StringTokenizer stringTokenizer = new StringTokenizer(nextToken);
-		methode = Methode.byName(stringTokenizer.nextToken());
-		url = stringTokenizer.nextToken();
-		protocol = stringTokenizer.nextToken();
-	}
-
-	public Request(String methode, String url, String protocol) {
-		this.methode = Methode.byName(methode);
-		this.url = url;
-		this.protocol = protocol;
+		nextToken=nextToken.replaceAll("\"","");
+		if (!"-".equals(nextToken)) {
+			StringTokenizer stringTokenizer = new StringTokenizer(nextToken);
+			methode = Methode.byName(stringTokenizer.nextToken());
+			url = stringTokenizer.nextToken();
+			protocol = stringTokenizer.nextToken();
+		}
 	}
 
 	private Methode methode;// GET

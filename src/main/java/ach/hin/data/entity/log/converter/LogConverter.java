@@ -1,4 +1,4 @@
-package ach.hin.data.entity.log.converter.impl;
+package ach.hin.data.entity.log.converter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

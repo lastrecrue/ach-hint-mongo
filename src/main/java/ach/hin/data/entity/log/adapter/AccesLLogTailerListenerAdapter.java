@@ -2,15 +2,17 @@ package ach.hin.data.entity.log.adapter;
 
 import org.apache.commons.io.input.TailerListenerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ach.hin.data.entity.log.AccessLog;
 import ach.hin.data.entity.log.ErrorAccessLog;
-import ach.hin.data.entity.log.converter.impl.LogConverter;
+import ach.hin.data.entity.log.converter.LogConverter;
 import ach.hin.data.repository.log.AccessLogRepository;
 import ach.hin.data.repository.log.ErrorAccessLogRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Service
 public class AccesLLogTailerListenerAdapter extends TailerListenerAdapter {
 
 	@Autowired
@@ -21,10 +23,6 @@ public class AccesLLogTailerListenerAdapter extends TailerListenerAdapter {
 
 	@Autowired
 	private AccessLogRepository accessLogRepository;
-
-	public AccesLLogTailerListenerAdapter(LogConverter logConverter) {
-		this.logConverter = logConverter;
-	}
 
 	public void handle(String ligne) {
 		log.debug(ligne);

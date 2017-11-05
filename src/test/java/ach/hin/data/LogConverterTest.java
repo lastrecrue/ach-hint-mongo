@@ -3,7 +3,7 @@ package ach.hin.data;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ach.hin.data.entity.log.converter.impl.LogConverter;
+import ach.hin.data.entity.log.converter.LogConverter;
 
 public class LogConverterTest {
 	private LogConverter logConverter = new LogConverter();

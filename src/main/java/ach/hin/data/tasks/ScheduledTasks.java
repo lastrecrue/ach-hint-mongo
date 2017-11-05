@@ -8,10 +8,11 @@ import java.util.concurrent.Executor;
 import org.apache.commons.io.input.Tailer;
 import org.apache.commons.io.input.TailerListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import ach.hin.data.entity.log.converter.impl.AccesLLogTailerListenerAdapter;
+import ach.hin.data.entity.log.adapter.AccesLLogTailerListenerAdapter;
 import ach.hin.data.entity.log.converter.impl.LogConverter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,10 +25,13 @@ public class ScheduledTasks {
 
 	public static Set<String> DB_IGNORED_LIGNE = new HashSet<>();
 
-	@Scheduled(cron = "${cron.expression}")
-	public void reportCurrentTime() {
+	@Value("${access_log.path}")
+	private String accessLogPath;
 
-		File file = new File("src/main/resources/access_log");
+	@Scheduled(cron = "${cron.expression}")
+	public void tailAccessLog() {
+
+		File file = new File(accessLogPath);
 		TailerListener listener = new AccesLLogTailerListenerAdapter(logConverter);
 		Tailer tailer = new Tailer(file, listener, 1000);
 
@@ -39,9 +43,7 @@ public class ScheduledTasks {
 		};
 
 		executor.execute(tailer);
-		for (String string : DB_IGNORED_LIGNE) {
-			log.info("ignored ligne : " + string);
-		}
+
 	}
 
 }

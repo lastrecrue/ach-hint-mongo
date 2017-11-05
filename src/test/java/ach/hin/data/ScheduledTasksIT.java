@@ -17,7 +17,7 @@ public class ScheduledTasksIT {
 
 	@Test
 	public void reportCurrentTime() {
-		scheduledTasks.reportCurrentTime();
+		scheduledTasks.tailAccessLog();
 
 	}
 }

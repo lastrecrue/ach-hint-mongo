@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
-import ach.hin.data.entity.log.LogAccess;
+import ach.hin.data.entity.log.AccessLog;
 import ach.hin.data.entity.log.Request;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,9 +35,9 @@ public class LogConverter {
 		return Pattern.compile(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	}
 
-	public LogAccess fromString(String ligne) {
+	public AccessLog fromString(String ligne) {
 		Matcher m = TLC_REG_EX.matcher(ligne);
-		LogAccess logAccess = null;
+		AccessLog logAccess = null;
 
 		if (m.find()) {
 			String source = m.group(1);
@@ -59,7 +59,7 @@ public class LogConverter {
 			}
 			Request request = new Request(requestText);
 			String FIXME = FIXMEText;
-			logAccess = new LogAccess(source, time, request, Integer.valueOf(responseText), FIXME);
+			logAccess = new AccessLog(source, time, request, Integer.valueOf(responseText), FIXME);
 
 		}
 

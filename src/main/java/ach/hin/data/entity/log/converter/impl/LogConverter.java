@@ -30,7 +30,7 @@ public class LogConverter {
 		final String re6 = ".*?"; // Non-greedy match on filler
 		final String re7 = "(\\d{3})"; // Integer Number 1
 		final String re8 = ".*?"; // Non-greedy match on filler
-		final String re9 = "([\\d+\\-])"; // Integer Number 2
+		final String re9 = "(\\d+|\\-)"; // Integer Number 2
 
 		final Pattern p = Pattern.compile(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 		return p;
@@ -48,6 +48,7 @@ public class LogConverter {
 			String requestText = m.group(3);
 			log.debug("requestText : " + requestText);
 			String responseText = m.group(4);
+			log.debug("responseText : " + responseText);
 			String FIXMEText = m.group(5);
 			log.debug("FIXMEText : " + FIXMEText);
 			Date time = null;

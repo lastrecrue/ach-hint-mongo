@@ -4,6 +4,7 @@ import java.util.StringTokenizer;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -12,14 +13,18 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@Slf4j
 public class Request {
 	public Request(String nextToken) {
-		nextToken=nextToken.replaceAll("\"","");
+		nextToken = nextToken.replaceAll("\"", "");
 		if (!"-".equals(nextToken)) {
 			StringTokenizer stringTokenizer = new StringTokenizer(nextToken);
 			methode = Methode.byName(stringTokenizer.nextToken());
+			log.debug("moethode : " + methode);
 			url = stringTokenizer.nextToken();
+			log.debug("url : " + url);
 			protocol = stringTokenizer.nextToken();
+			log.debug("protocol : " + protocol);
 		}
 	}
 
